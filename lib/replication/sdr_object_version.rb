@@ -152,7 +152,7 @@ module Replication
     # @return [Replica] Copy the object version into a BagIt Bag in tarfile format
     def create_replica
       replica = self.replica
-      bag = BagitBag.create_bag(replica.bag_pathname)
+      bag = Archive::BagitBag.create_bag(replica.bag_pathname)
       bag.bag_checksum_types = [:sha256]
       bag.add_payload_tarfile("#{replica.replica_id}.tar",version_pathname, storage_object.object_pathname.parent)
       bag.write_bag_info_txt
