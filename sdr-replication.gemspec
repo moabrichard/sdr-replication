@@ -17,7 +17,7 @@ Gem::Specification.new do |s|
 
   # Runtime dependencies
   s.add_dependency 'json_pure', '~> 1.8'
-  s.add_dependency 'rest-client', '~> 1.7'
+  s.add_dependency 'rest-client', '~> 1.6'
   s.add_dependency 'moab-versioning', '~> 1.3'
   s.add_dependency 'archive-utils', '~> 0.0'
 
