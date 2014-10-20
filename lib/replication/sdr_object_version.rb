@@ -3,6 +3,9 @@ require 'sdr_replication'
 
 module Replication
 
+  class ReplicaExistsError < RuntimeError
+  end
+
   #
   # @note Copyright (c) 2014 by The Board of Trustees of the Leland Stanford Junior University.
   #   All rights reserved.  See {file:LICENSE.rdoc} for details.
@@ -150,8 +153,10 @@ module Replication
     end
 
     # @return [Replica] Copy the object version into a BagIt Bag in tarfile format
+    # @raise [ReplicaExistsError] will not replace data in replica.bag_pathname
     def create_replica
       replica = self.replica
+      raise ReplicaExistsError if replica.bag_pathname.exist?
       bag = Archive::BagitBag.create_bag(replica.bag_pathname)
       bag.bag_checksum_types = [:sha256]
       bag.add_payload_tarfile("#{replica.replica_id}.tar",version_pathname, storage_object.object_pathname.parent)

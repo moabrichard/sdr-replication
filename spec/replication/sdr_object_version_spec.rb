@@ -4,43 +4,43 @@ require_relative '../spec_helper'
 describe 'Replication::SdrObjectVersion' do
 
   describe '=========================== CONSTRUCTOR ===========================' do
-    
+
     # Unit test for constructor: {Replication::SdrObjectVersion#initialize}
     # Which returns an instance of: [Replication::SdrObjectVersion]
     # For input parameters:
-    # * object_version [Moab::StorageObjectVersion] = Represents the object version's storage location 
+    # * object_version [Moab::StorageObjectVersion] = Represents the object version's storage location
     specify 'Replication::SdrObjectVersion#initialize' do
 
       sdr_object = SdrObject.new("druid:jq937jp0017")
       sdr_object_version = SdrObjectVersion.new(sdr_object,1)
       expect(sdr_object_version).to be_instance_of(SdrObjectVersion)
     end
-  
+
   end
-  
+
   describe '=========================== INSTANCE METHODS ===========================' do
-    
+
     before(:all) do
       @druid = "druid:jq937jp0017"
       @sdr_object = SdrObject.new(@druid)
       @sdr_object_version = SdrObjectVersion.new(@sdr_object,1)
       Replica.replica_cache_pathname = Pathname(Dir.mktmpdir("replica_cache"))
     end
-    
+
     # Unit test for method: {Replication::SdrObjectVersion#digital_object_id}
     # Which returns: [String] The digital object identifier (druid)
     # For input parameters: (None)
     specify 'Replication::SdrObjectVersion#digital_object_id' do
       expect(@sdr_object_version.digital_object_id).to eq(@druid)
     end
-    
+
     # Unit test for method: {Replication::SdrObjectVersion#sdr_version_id}
     # Which returns: [Integer] The digital object version number
     # For input parameters: (None)
     specify 'Replication::SdrObjectVersion#sdr_version_id' do
       expect(@sdr_object_version.version_id).to eq(1)
     end
-    
+
     # Unit test for method: {Replication::SdrObjectVersion#version_inventory}
     # Which returns: [Moab::FileInventory] The moab version manifest for the version
     # For input parameters: (None)
@@ -49,7 +49,7 @@ describe 'Replication::SdrObjectVersion' do
       expect(vi).to be_instance_of(Moab::FileInventory)
       expect(vi.file_count).to eq(12)
     end
-    
+
     # Unit test for method: {Replication::SdrObjectVersion#version_additions}
     # Which returns: [Moab::FileInventory] The moab version manifest for the version
     # For input parameters: (None)
@@ -144,8 +144,8 @@ describe 'Replication::SdrObjectVersion' do
       expect(replica.home_repository).to eq('sdr')
       expect(replica.bag_pathname).to eq(Replica.replica_cache_pathname.join("sdr/jq937jp0017-v0001"))
     end
-    
-    # Unit test for method: {Replication::SdrObjectVersion#moab_to_replica_bag}
+
+    # Unit test for method: {Replication::SdrObjectVersion#create_replica}
     # Which returns: [BagitBag] Copy the object version into a BagIt Bag in tarfile format
     # For input parameters: (None)
     specify 'Replication::SdrObjectVersion#create_replica' do
@@ -154,9 +154,11 @@ describe 'Replication::SdrObjectVersion' do
       bag = replica.bagit_bag
       expect(bag.bag_pathname).to eq(Replica.replica_cache_pathname.join("sdr/jq937jp0017-v0001"))
       expect(bag.verify_bag).to eq(true)
+      # Check that it will not overwrite an existing replica
+      expect{@sdr_object_version.create_replica}.to raise_error(Replication::ReplicaExistsError)
       Replica.replica_cache_pathname.rmtree
     end
-  
+
   end
 
 end
