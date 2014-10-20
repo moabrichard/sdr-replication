@@ -34,7 +34,7 @@ module Replication
     # @return [BagitBag] A bag containing a copy of the replica
     attr_accessor :bagit_bag
 
-    # @return [Integer] The size (in bytes) of the replic bag's payload
+    # @return [Integer] The size (in bytes) of the replica bag's payload
     attr_accessor :payload_size
 
     # @return [String] The type of checksum/digest type (:sha1, :sha256)
