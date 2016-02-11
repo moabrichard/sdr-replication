@@ -18,7 +18,7 @@ Gem::Specification.new do |s|
   # Runtime dependencies
   s.add_dependency 'json_pure', '~> 1.8'
   s.add_dependency 'rest-client', '~> 1.6'
-  s.add_dependency 'moab-versioning', '~> 1.3'
+  s.add_dependency 'moab-versioning', '~> 2.0'
   s.add_dependency 'archive-utils', '~> 0.0'
 
   s.add_development_dependency 'pry', '~> 0'
@@ -33,4 +33,3 @@ Gem::Specification.new do |s|
   s.files        = Dir.glob('lib/**/*')
   s.require_path = 'lib'
 end
-
