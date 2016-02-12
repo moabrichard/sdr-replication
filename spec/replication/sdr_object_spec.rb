@@ -1,4 +1,4 @@
-require_relative '../spec_helper'
+require 'spec_helper'
 
 # Unit tests for class {Replication::SdrObject}
 describe 'Replication::SdrObject' do

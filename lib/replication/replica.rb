@@ -59,7 +59,7 @@ module Replication
     # @return [Replica] Open the replica's bag and extract its properties
     def get_bag_data
       bag = BagitBag.open_bag(bag_pathname)
-      @create_date = UtcTime.output(bag_pathname.ctime)
+      @create_date = Moab::UtcTime.output(bag_pathname.ctime)
       size_hash = bag.info_payload_size
       @payload_size = size_hash[:bytes]
       file_fixity_hash = bag.read_manifest_files('manifest')
