@@ -8,8 +8,7 @@ Gem::Specification.new do |s|
   s.licenses    = 'Apache-2.0'
   s.platform    = Gem::Platform::RUBY
   s.authors     = ['Darren Weber', 'Richard Anderson']
-  s.email       = ['darren.weber@stanford.edu']
-  s.summary     = 'Core methods for support of SDR Preservation Core replication '
+  s.summary     = 'Utilities for replication of objects to tape, DPN or other targets.'
   s.description = 'Contains classes to archive and retrieve digital object version content and metadata'
   s.homepage    = 'https://github.com/sul-dlss/sdr-replication'
 
@@ -26,8 +25,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'equivalent-xml', '~> 0.5'
   s.add_development_dependency 'fakeweb', '~> 1'
   s.add_development_dependency 'rspec', '~> 3.0'
-  s.add_development_dependency 'simplecov', '~> 0.9.0'
-  s.add_development_dependency 'yard', '~> 0.8'
+  s.add_development_dependency 'coveralls'
 
   s.files        = Dir.glob('lib/**/*')
   s.require_path = 'lib'

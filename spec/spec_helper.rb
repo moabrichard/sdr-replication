@@ -1,10 +1,11 @@
 ENV['RSPEC'] = "true"
-#require 'rspec'
+
+require 'coveralls'
+Coveralls.wear!
+
 require 'awesome_print'
 require 'equivalent-xml'
 require 'fakeweb'
-require 'simplecov'
-SimpleCov.start
 require 'sdr_replication'
 require 'spec_config'
 
