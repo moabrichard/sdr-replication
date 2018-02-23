@@ -3,8 +3,6 @@ ENV['RSPEC'] = "true"
 require 'coveralls'
 Coveralls.wear!
 
-require 'awesome_print'
-require 'equivalent-xml'
 require 'fakeweb'
 require 'sdr_replication'
 require 'spec_config'
