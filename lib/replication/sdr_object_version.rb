@@ -107,7 +107,6 @@ module Replication
       }
       ArchiveCatalog.add_or_update_item(:sdr_object_versions, sdr_object_version_data)
 
-
       content = version_inventory.group('content')
       metadata = version_inventory.group('metadata')
       raise "No metadata group found in version inventory" unless metadata
