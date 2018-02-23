@@ -1,11 +1,10 @@
-notifications:
-  email: false
-
+language: ruby
 rvm:
-  - 2.1.2 # current stanford environments
-  - 2.1.8
-  - 2.2.4
+  - 2.1.2 # used by presrvation robots VMs
+  - 2.2.0
   - 2.3.0
 
-before_install:
-  - gem install bundler
+cache: bundler
+
+notifications:
+  email: false
