@@ -90,6 +90,4 @@ RSpec.configure do |config|
   config.before(:all) do
     @fixtures = Pathname.new(File.dirname(__FILE__)).join('fixtures').realpath
   end
-
-
 end
