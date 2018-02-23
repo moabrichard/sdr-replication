@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe 'Replication::SdrObject' do
   it '#initialize' do
     druid = "druid:jq937jp0017"
