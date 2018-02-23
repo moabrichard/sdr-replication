@@ -1,6 +1,3 @@
-require File.join(File.dirname(__FILE__),'../libdir')
-require 'sdr_replication'
-
 module Replication
 
   # The metadata concerning the digital object/version that is the subject of replication.
@@ -83,8 +80,5 @@ module Replication
       ArchiveCatalog.add_or_update_item(:replicas, replica_data)
       true
     end
-
   end
 end
-
-

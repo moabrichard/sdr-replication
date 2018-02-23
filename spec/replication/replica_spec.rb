@@ -1,6 +1,3 @@
-require 'spec_helper'
-
-# Unit tests for class {Replication::Replica}
 describe 'Replication::Replica' do
   
   before(:all) do

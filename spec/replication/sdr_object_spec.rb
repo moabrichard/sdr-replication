@@ -1,10 +1,7 @@
-require 'spec_helper'
-
-# Unit tests for class {Replication::SdrObject}
 describe 'Replication::SdrObject' do
 
   describe '=========================== CONSTRUCTOR ===========================' do
-    
+
     # Unit test for constructor: {Replication::SdrObject#initialize}
     # Which returns an instance of: [Replication::SdrObject]
     specify 'Replication::SdrObjectVersion#initialize' do
@@ -15,16 +12,16 @@ describe 'Replication::SdrObject' do
       expect(sdr_object.object_pathname).to eq(Pathname(@fixtures).join('moab-objects',druid.split(/:/).last))
       expect(sdr_object.storage_root).to eq(Pathname(@fixtures))
     end
-  
+
   end
-  
+
   describe '=========================== INSTANCE METHODS ===========================' do
-    
+
     before(:all) do
       druid = "druid:jq937jp0017"
       sdr_object = SdrObject.new(druid)
     end
-    
+
 
   end
 

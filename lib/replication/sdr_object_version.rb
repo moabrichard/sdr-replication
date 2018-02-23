@@ -1,6 +1,3 @@
-require File.join(File.dirname(__FILE__),'../libdir')
-require 'sdr_replication'
-
 module Replication
 
   class ReplicaExistsError < RuntimeError
@@ -165,7 +162,5 @@ module Replication
       replica.bagit_bag = bag
       replica
     end
-
   end
-
 end

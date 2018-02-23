@@ -1,4 +1,3 @@
-require 'rubygems'
 require 'rest-client'
 
 module Replication
@@ -102,9 +101,6 @@ module Replication
             raise response.description
         end
       end
-
     end
-
   end
-
 end

@@ -1,6 +1,3 @@
-require 'spec_helper'
-
-# Unit tests for class {Replication::SdrObjectVersion}
 describe 'Replication::SdrObjectVersion' do
 
   describe '=========================== CONSTRUCTOR ===========================' do

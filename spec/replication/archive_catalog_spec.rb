@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe 'ArchiveCatalog' do
 
   specify "get_item" do

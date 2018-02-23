@@ -1,6 +1,3 @@
-require File.join(File.dirname(__FILE__),'../libdir')
-require 'sdr_replication'
-
 module Replication
 
   class SdrObject < Moab::StorageObject
@@ -11,8 +8,5 @@ module Replication
       @object_pathname = storage_object.object_pathname
       @storage_root = storage_object.storage_root
     end
-
-
   end
-
 end
