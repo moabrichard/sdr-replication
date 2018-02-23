@@ -68,26 +68,25 @@ module Replication
 
     # @return [Boolean] Update digital_objects and sdr_objects tables in Archive Catalog
     def catalog_object_data
-
       identity_metadata = parse_identity_metadata
       relationship_metadata = parse_relationship_metadata
 
       digital_object_data = {
-          :digital_object_id => digital_object_id,
-          :home_repository => 'sdr'
+        :digital_object_id => digital_object_id,
+        :home_repository => 'sdr'
       }
 
       sdr_object_data = {
-          :sdr_object_id => digital_object_id,
-          :object_type => identity_metadata[:object_type].to_s[0..19],
-          :object_label => identity_metadata[:object_label].to_s[0..99],
-          :governing_object => relationship_metadata[:governed_by].to_s,
-          :latest_version => storage_object.current_version_id
+        :sdr_object_id => digital_object_id,
+        :object_type => identity_metadata[:object_type].to_s[0..19],
+        :object_label => identity_metadata[:object_label].to_s[0..99],
+        :governing_object => relationship_metadata[:governed_by].to_s,
+        :latest_version => storage_object.current_version_id
       }
 
       if version_id == 1
-        ArchiveCatalog.add_or_update_item(:digital_objects,digital_object_data)
-        ArchiveCatalog.add_or_update_item(:sdr_objects,sdr_object_data)
+        ArchiveCatalog.add_or_update_item(:digital_objects, digital_object_data)
+        ArchiveCatalog.add_or_update_item(:sdr_objects, sdr_object_data)
       else
         ArchiveCatalog.update_item(:sdr_objects, digital_object_id, sdr_object_data)
       end
@@ -97,13 +96,12 @@ module Replication
 
     # @return [Boolean] Update sdr_object_versions and sdr_version_stats tables in Archive Catalog
     def catalog_version_data
-
       version_inventory = self.version_inventory
       sdr_object_version_data = {
-          :sdr_object_id => digital_object_id,
-          :sdr_version_id => version_id,
-          :replica_id => composite_key,
-          :ingest_date => version_inventory.inventory_datetime
+        :sdr_object_id => digital_object_id,
+        :sdr_version_id => version_id,
+        :replica_id => composite_key,
+        :ingest_date => version_inventory.inventory_datetime
       }
       ArchiveCatalog.add_or_update_item(:sdr_object_versions, sdr_object_version_data)
 
@@ -111,15 +109,15 @@ module Replication
       metadata = version_inventory.group('metadata')
       raise "No metadata group found in version inventory" unless metadata
       sdr_version_full = {
-          :sdr_object_id => digital_object_id,
-          :sdr_version_id => version_id,
-          :inventory_type => 'full',
-          :content_files => (content ? content.file_count : 0),
-          :content_bytes => (content ? content.byte_count : 0),
-          :content_blocks => (content ? content.block_count : 0),
-          :metadata_files => metadata.file_count,
-          :metadata_bytes => metadata.byte_count,
-          :metadata_blocks => metadata.block_count
+        :sdr_object_id => digital_object_id,
+        :sdr_version_id => version_id,
+        :inventory_type => 'full',
+        :content_files => (content ? content.file_count : 0),
+        :content_bytes => (content ? content.byte_count : 0),
+        :content_blocks => (content ? content.block_count : 0),
+        :metadata_files => metadata.file_count,
+        :metadata_bytes => metadata.byte_count,
+        :metadata_blocks => metadata.block_count
       }
       ArchiveCatalog.add_or_update_item(:sdr_version_stats, sdr_version_full)
 
@@ -128,15 +126,15 @@ module Replication
       metadata = version_additions.group('metadata')
       raise "No metadata group found in version additions" unless metadata
       sdr_version_delta = {
-          :sdr_object_id => digital_object_id,
-          :sdr_version_id => version_id,
-          :inventory_type => 'delta',
-          :content_files => (content ? content.file_count : 0),
-          :content_bytes => (content ? content.byte_count : 0),
-          :content_blocks => (content ? content.block_count : 0),
-          :metadata_files => metadata.file_count,
-          :metadata_bytes => metadata.byte_count,
-          :metadata_blocks => metadata.block_count
+        :sdr_object_id => digital_object_id,
+        :sdr_version_id => version_id,
+        :inventory_type => 'delta',
+        :content_files => (content ? content.file_count : 0),
+        :content_bytes => (content ? content.byte_count : 0),
+        :content_blocks => (content ? content.block_count : 0),
+        :metadata_files => metadata.file_count,
+        :metadata_bytes => metadata.byte_count,
+        :metadata_blocks => metadata.block_count
       }
       ArchiveCatalog.add_or_update_item(:sdr_version_stats, sdr_version_delta)
 
@@ -145,7 +143,7 @@ module Replication
 
     # @return [Replica] The Replica of the object version that is archived to tape, etc
     def replica
-      Replica.new(composite_key.sub(/^druid:/,''), 'sdr')
+      Replica.new(composite_key.sub(/^druid:/, ''), 'sdr')
     end
 
     # @return [Replica] Copy the object version into a BagIt Bag in tarfile format
@@ -155,7 +153,7 @@ module Replication
       raise ReplicaExistsError if replica.bag_pathname.exist?
       bag = Archive::BagitBag.create_bag(replica.bag_pathname)
       bag.bag_checksum_types = [:sha256]
-      bag.add_payload_tarfile("#{replica.replica_id}.tar",version_pathname, storage_object.object_pathname.parent)
+      bag.add_payload_tarfile("#{replica.replica_id}.tar", version_pathname, storage_object.object_pathname.parent)
       bag.write_bag_info_txt
       bag.write_manifest_checksums('tagmanifest', bag.generate_tagfile_checksums)
       replica.bagit_bag = bag

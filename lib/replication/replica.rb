@@ -50,7 +50,7 @@ module Replication
 
     # @return [Pathname] The location of the replica bag
     def bag_pathname
-      @@replica_cache_pathname.join(@home_repository,@replica_id)
+      @@replica_cache_pathname.join(@home_repository, @replica_id)
     end
 
     # @return [Replica] Open the replica's bag and extract its properties
@@ -70,12 +70,12 @@ module Replication
     # @return [Boolean] Update the replicas table of the Archive Catalog
     def catalog_replica_data
       replica_data = {
-          :replica_id => @replica_id,
-          :home_repository => @home_repository,
-          :create_date => @create_date,
-          :payload_size => @payload_size,
-          :payload_fixity_type => @payload_fixity_type,
-          :payload_fixity => @payload_fixity
+        :replica_id => @replica_id,
+        :home_repository => @home_repository,
+        :create_date => @create_date,
+        :payload_size => @payload_size,
+        :payload_fixity_type => @payload_fixity_type,
+        :payload_fixity => @payload_fixity
       }
       ArchiveCatalog.add_or_update_item(:replicas, replica_data)
       true

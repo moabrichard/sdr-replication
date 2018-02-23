@@ -40,7 +40,7 @@ module Replication
 
       # The base RestClient resource to be used for requests
       def root_resource
-        RestClient::Resource.new(@root_uri, {:open_timeout => @timeout, :timeout => @timeout})
+        RestClient::Resource.new(@root_uri, { :open_timeout => @timeout, :timeout => @timeout })
       end
 
       # Get the item record from the specified table for the specified primary key.
@@ -49,15 +49,15 @@ module Replication
       # @return [Hash] the row (in key,value hash) from the specified table for the specified identifier.
       #    Response body contains the item data in JSON format, which is converted to a hash.
       # @see http://tools.ietf.org/html/rfc2616#page-53
-      def get_item(table,id)
+      def get_item(table, id)
         # Don't raise RestClient::Exception but return the response
-        headers = {:accept => 'application/json'}
+        headers = { :accept => 'application/json' }
         response = root_resource["#{table}/#{id}.json"].get(headers) { |resp, _request, _result| resp }
         case response.code.to_s
-          when '200'
-            JSON.parse(response.body)
-          else
-            raise response.description
+        when '200'
+          JSON.parse(response.body)
+        else
+          raise response.description
         end
       end
 
@@ -68,16 +68,16 @@ module Replication
       #    The HTTP response code for success is 201 (Created).
       # @see http://en.wikipedia.org/wiki/POST_(HTTP)
       # @see http://tools.ietf.org/html/rfc2616#page-54
-      def add_or_update_item(table,hash)
+      def add_or_update_item(table, hash)
         payload = hash.to_json
-        headers = {:content_type => :json, :accept => :json}
+        headers = { :content_type => :json, :accept => :json }
         # Don't raise RestClient::Exception but return the response
         response = root_resource["#{table}.json"].post(payload, headers) { |resp, _request, _result| resp }
         case response.code.to_s
-          when '201'
-            JSON.parse(response.body)
-          else
-            raise response.description
+        when '201'
+          JSON.parse(response.body)
+        else
+          raise response.description
         end
       end
 
@@ -89,16 +89,16 @@ module Replication
       #    Response body is empty, per same specification.
       # @see https://tools.ietf.org/html/rfc5789
       # @see http://stackoverflow.com/questions/797834/should-a-restful-put-operation-return-something/827045#827045
-      def update_item(table,id,hash)
+      def update_item(table, id, hash)
         payload = hash.to_json
-        headers = {:content_type => :json}
+        headers = { :content_type => :json }
         # Don't raise RestClient::Exception but return the response
         response = root_resource["#{table}/#{id}.json"].patch(payload, headers) { |resp, _request, _result| resp }
         case response.code.to_s
-          when '204'
-            true
-          else
-            raise response.description
+        when '204'
+          true
+        else
+          raise response.description
         end
       end
     end
