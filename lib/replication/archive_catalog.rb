@@ -52,7 +52,7 @@ module Replication
       def get_item(table,id)
         # Don't raise RestClient::Exception but return the response
         headers = {:accept => 'application/json'}
-        response = root_resource["#{table}/#{id}.json"].get(headers) {|response, request, result| response }
+        response = root_resource["#{table}/#{id}.json"].get(headers) { |resp, _request, _result| resp }
         case response.code.to_s
           when '200'
             JSON.parse(response.body)
@@ -72,7 +72,7 @@ module Replication
         payload = hash.to_json
         headers = {:content_type => :json, :accept => :json}
         # Don't raise RestClient::Exception but return the response
-        response = root_resource["#{table}.json"].post(payload, headers) {|response, request, result| response }
+        response = root_resource["#{table}.json"].post(payload, headers) { |resp, _request, _result| resp }
         case response.code.to_s
           when '201'
             JSON.parse(response.body)
@@ -93,7 +93,7 @@ module Replication
         payload = hash.to_json
         headers = {:content_type => :json}
         # Don't raise RestClient::Exception but return the response
-        response = root_resource["#{table}/#{id}.json"].patch(payload, headers) {|response, request, result| response }
+        response = root_resource["#{table}/#{id}.json"].patch(payload, headers) { |resp, _request, _result| resp }
         case response.code.to_s
           when '204'
             true
