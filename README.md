@@ -6,3 +6,5 @@
 # sdr-replication
 
 Ruby gem supporting replication of objects to tape, DPN or other targets.  It is used by sdr-preservation-core robots.
+
+**Note** As of Q1 2018, this repository is being replaced by https://github.com/sul-dlss/preservation_robots
